@@ -1,6 +1,3 @@
-local str = terralib.includec("string.h")
-local c = terralib.includec("stdio.h")
-
 local function small_table(key_type, value_type, max_size)
 
     local struct pair {
@@ -76,8 +73,7 @@ local function small_table(key_type, value_type, max_size)
         end
     end
 
-    return small_table
-
+    return small_table, pair
 end
 
 return small_table

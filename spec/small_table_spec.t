@@ -1,7 +1,10 @@
 local small_table = require("small_table")
 
 describe("small table", function()
-    local small_table_type = small_table(int, int, 3)
+    local small_table_type, pair = small_table(int, int, 3)
+
+    assert.is.truthy(small_table_type)
+    assert.is.truthy(pair)
 
     local my_table = global(small_table_type)
 
@@ -53,10 +56,13 @@ describe("small table", function()
     it("should return false when put exceeds the max number of keys", function()
         assert.is.truthy(instance():put(1,0))
         assert.is.truthy(instance():put(2,0))
+        assert.is.falsy(instance():is_full())
         assert.is.truthy(instance():put(3,0))
+        assert.is.truthy(instance():is_full())
         assert.is.equal(3, instance():size())
         assert.is.falsy(instance():put(4,0))
         assert.is.equal(3, instance():size())
+        assert.is.truthy(instance():is_full())
     end)
 
     it("should overwrite existing key value with new value", function()
@@ -72,10 +78,12 @@ describe("small table", function()
         assert.is.truthy(instance():put(2,20))
         assert.is.truthy(instance():put(3,30))
         assert.is.equal(3, instance():size())
+        assert.is.truthy(instance():is_full())
 
         instance():del(2)
 
         assert.is.falsy(instance():get(2))
+        assert.is.falsy(instance():is_full())
         assert.is.equal(10, instance():get(1).value)
         assert.is.equal(30, instance():get(3).value)
         assert.is.equal(2, instance():size())
@@ -83,6 +91,11 @@ describe("small table", function()
         instance():del(3)
         assert.is.equal(10, instance():get(1).value)
         assert.is.equal(1, instance():size())
+
+        instance():del(1)
+        assert.is.truthy(instance():is_empty())
+        instance():del(1)
+        assert.is.truthy(instance():is_empty())
     end)
 
     it("should not change anything with a delete of a non-existing key", function()
