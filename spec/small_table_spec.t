@@ -90,6 +90,10 @@ describe("small table", function()
         assert.is.equal(10, instance():get(1).value)
         assert.is.equal(30, instance():get(3).value)
         assert.is.equal(2, instance():size())
+
+        instance():del(3)
+        assert.is.equal(10, instance():get(1).value)
+        assert.is.equal(1, instance():size())
     end)
 
     it("should not change anything with a delete of a non-existing key", function()
