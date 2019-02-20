@@ -8,4 +8,6 @@ The key comparitor is the equality operator (==), so small_table is only suited 
 
 The [busted](https://olivinelabs.com/busted/) unit tests in the spec directory describe its intended use.
 
+Consider this project a work in progress.
+
 License: MIT.
